@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<style>
+  
+        *{
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+        
+        body {
+          font-family:georgia,garamond,serif;font-size:20px;font-style:italic;
+          line-height: 1.6;
+        }
+        
+        ul {
+          list-style: none;
+        }
+        
+         ul li {
+           margin-top:10px;
+        }
+        
+        header {
+          background: #f4f4f4;
+          padding: 1rem;
+          text-align: center;
+        }
+        
+        .container {
+          margin: auto;
+          width: 500px;
+          overflow: auto;
+          padding: 3rem 2rem;
+        }
+        
+        #shana-devotionals {
+          padding: 2rem;
+          background: black;
+          border-radius: 15px
+        }
+        
+        #shana-devotionals label {
+          display: block;
+        }
+        
+        #shana-devotionals input[type='text'] {
+          width: 100%;
+          padding: 8px;
+          margin-bottom: 10px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+        }
+        
+        .btn {
+          display: block;
+          width: 100%;
+          padding: 10px 15px;
+          border: 0;
+          background: #333;
+          border-radius: 5px;
+          margin: 5px 0;
+        }
+        
+        .btn:hover {
+          background: red;
+        }
+</style>
+    <<html>
+        <head>
+            <title>
+                Random Baby Name Generator
+            </title>
+        </head>
+        <body>
+            <h1>
+                Pick a Baby Name and Middle Name!
+            </h1>
+            <p>
+              {{ sentence }}
+          </p>
+
+          <button onclick="window.location.reload();">
+              Generate My Baby's Name
+          </button>
+
+          <section class="container">
+            <form id="shana-devotionals" method="POST" action="{{url_for('Fordetails')}}">
+                    <h1 style="color: salmon">Enter your details<br>
+                    </h1>
+            
+                    <div style="color: #f4f4f4">Name <input type = "text" name= "first_name" /> <br>
+                    </div>
+            
+                    <div style="color: #f4f4f4">Surname<input type = "text" name = "last_name" /> <br>
+                    </div>
+            
+                    <div style="color: #f4f4f4">Area Number<input type = "text" name = "area_num " /> <br>
+                    </div>
+          
+                    <div>
+
+                      <input class="btn" type="submit" value="Your Details">
+      
+      
+      
+                  </div>
+      
+         </form>
+                </section> 
+        </body>
+            <br>
+
+           
+
+        
+
+    </html>    

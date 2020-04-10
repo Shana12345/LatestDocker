@@ -1,0 +1,55 @@
+version: "3"
+
+services:
+    service_1:
+        image: shana12345/microservice_1
+        ports:
+            - "5000:5000"
+        environment: 
+            - MYSQL=${MYSQL}
+            - MYSQLUSER=${MYSQLUSER}
+            - MYSQLPASSWORD=${MYSQLPASSWORD}
+            - MYSQLDB=${MYSQLDB}
+        networks:
+            - ingress
+        deploy:
+            replicas: 2
+
+    service_2:
+        image: shana12345/microservice_2
+        networks:
+            - ingress
+        deploy:
+            replicas: 1
+
+    service_3:
+        image: shana12345/microservice_3
+        networks:
+            - ingress
+        deploy:
+            replicas: 1
+
+    service_4:
+        image: shana12345/microservice_4
+        networks:
+            - ingress
+        deploy:
+            replicas: 3
+
+    microservice:
+        image: shana12345/microservice
+        ports:
+            - "80:80"
+        networks:
+            - ingress
+        depends_on:
+            - service_1
+            - service_2
+            - service_3
+            - service_4
+        deploy:
+            replicas: 3
+
+networks:
+    ingress:
+        driver: overlay
