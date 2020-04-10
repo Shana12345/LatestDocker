@@ -12,7 +12,6 @@ pipeline {
                     sh './scripts/ansible.sh'
                 }
             }
-
             stage('Deploying Docker Stack'){
                 agent {label 'manager_node'}
                 steps{
