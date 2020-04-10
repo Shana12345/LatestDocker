@@ -7,8 +7,8 @@ apt install -y python
 apt install -y python-pip
 
 # make sure ~/.local/bin exists and is on your PATH
-mkdir -p ~/.local/bin
-touch ~/.bashrc
+sudo mkdir -p ~/.local/bin
+sudo touch ~/.bashrc
 echo 'PATH=$PATH:~/.local/bin' > ~/.bashrc
 ## change ownership
 sudo chown -R $(whoami):$(whoami) ~/*
