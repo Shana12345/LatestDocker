@@ -8,7 +8,7 @@ pipeline {
                 agent {label 'master'}
                 steps{
                     sh 'chmod +x ./scripts/*'
-                    sh 'bash ./scripts/before_installation.sh'
+                    sh 'sudo./scripts/before_installation.sh'
                     sh './scripts/ansible.sh'
                 }
             }
