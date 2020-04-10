@@ -7,16 +7,16 @@ pipeline {
             stage('Dependencies'){
                 agent {label 'master'}
                 steps{
-                    sh 'chmod +x ./script/*'
-                    sh 'bash ./script/before_installation.sh'
-                    sh './script/ansible.sh'
+                    sh 'chmod +x ./scripts/*'
+                    sh 'bash ./scripts/before_installation.sh'
+                    sh './scripts/ansible.sh'
                 }
             }
 
             stage('Deploying Docker Stack'){
                 agent {label 'manager_node'}
                 steps{
-                    sh 'chmod +x ./script/*'
+                    sh 'chmod +x ./scripts/*'
                     sh './script/docker.sh'
                 }
             }
