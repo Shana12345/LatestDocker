@@ -36,8 +36,8 @@ services:
         deploy:
             replicas: 3
 
-    microservice:
-        image: shana12345/microservice
+    nginx:
+        image: shana12345/nginx:1
         ports:
             - "80:80"
         networks:
