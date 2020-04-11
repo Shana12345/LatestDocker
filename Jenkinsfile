@@ -80,9 +80,9 @@ pipeline{
 
                 sh 'chmod 775 /var/lib/jenkins/workspace/SaveMe/tests'
 
-                sh './tests/before_prob.sh'
+                sh 'bash ./tests/before_prob.sh'
 
-                sh './tests/after_prob.sh'
+                sh 'bash ./tests/after_prob.sh'
 
             }
 
