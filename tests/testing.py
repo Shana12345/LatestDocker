@@ -34,7 +34,7 @@ def url_four():
 def testDB_insert():
     with app.app_context():
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO areaTable (first_name, last_name, area_num)  VALUES ('FINAL', 'TEST', 77)")
+        cur.execute("INSERT INTO areaTable (first_name, last_name, area_num)  VALUES ('JesusIs', 'WithHer', 74)")
         mysql.connection.commit()
         cur.execute("SELECT * FROM areaTable")
         record_after = cur.fetchall()
@@ -45,6 +45,6 @@ def testDB_insert():
                 m.append(j)
         cur.close()
         print(m)
-        assert('FINAL') == m[-3]
-        assert('TEST') == m[-2]
-        assert(77) == m[-1]
+        assert('JesusIs') == m[-3]
+        assert('WithHer') == m[-2]
+        assert(74) == m[-1]
