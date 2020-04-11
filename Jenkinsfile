@@ -75,11 +75,12 @@ pipeline{
 
             steps{
 
-                sh 'echo "Pinging URLs"'
+         
+                sh 'echo "checking URLs"'
 
-                sh 'python3 -m coverage run -m pytest tests/testing.py'
+                sh './tests/before_prob.sh'
 
-                sh 'python3 -m coverage report'
+                sh './tests/after_prob.sh'
 
             }
 
