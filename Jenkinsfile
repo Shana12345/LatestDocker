@@ -77,7 +77,7 @@ pipeline{
 
                 sh 'echo "Pinging URLs"'
 
-                sh 'python3 -m coverage run -m pytest tests/url_testing.py'
+                sh 'python3 -m coverage run -m pytest tests/testing.py'
 
                 sh 'python3 -m coverage report'
 
@@ -127,7 +127,7 @@ pipeline{
 
                 // sh 'newgrp docker'
 
-                sh 'sudo docker stack rm character_stack'
+                sh 'sudo docker stack rm KeepGoing'
 
                 sh 'sudo docker stack deploy --compose-file docker-compose.yml KeepGoing'
 
