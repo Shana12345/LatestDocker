@@ -98,29 +98,29 @@ pipeline{
 
                 sh 'echo "Probing MySQL Database"'
 
-                sh 'chmod +x /var/lib/jenkins/workspace/SaveMe/scripts/dbTesting.sh'
+                sh 'ansible-playbook -i inventory.cfg playbook.yml'
 
-                sh './scripts/dbTesting.sh'
-
-            }
-
-        }
-
-                stage("ansibleSetup"){
-
-            agent {label 'master'}
-
-            steps{
-
-                sh 'echo "Antsy Ansible"'
-
-                sh 'chmod +x /var/lib/jenkins/workspace/SaveMe/scripts/ansibleSetup.sh'
-
-                sh './scripts/ansibleSetup.sh'
+//                sh './scripts/dbTesting.sh'
 
             }
 
         }
+
+        // stage("ansibleSetup"){
+
+           // agent {label 'master'}
+
+           // steps{
+
+            //    sh 'echo "Ansible"'
+
+             //   sh 'chmod +x /var/lib/jenkins/workspace/SaveMe/scripts/ansibleSetup.sh'
+//
+             //   sh './scripts/ansibleSetup.sh'
+
+         //   }
+
+        // }
 
         stage("swarmDeploy"){
 
