@@ -1,14 +1,49 @@
+pipeline{
 
-
-
-pipeline {
-
-    agent none
-
+    agent any
 
 
     stages{
 
+        stage("Test Install"){
+
+            steps{
+                sh 'echo "installing docker locally"'
+                sh 'chmod 775 ./scripts/*'
+                sh './scripts/before_installation.sh'
+
+            }
+
+        }
+
+        stage("Test Docker Swarm"){
+
+            steps{
+
+                sh 'echo "install testing docker-swarm"'
+                sh 'chmod 775 ./scripts/*'
+                sh './scripts/installation.sh'
+                sh '.roles/docker-swarm-init/tasks/main.yml'
+                sh 'sudo docker stack deploy --compose-file /var/lib/jenkins/workspace/SaveMe/docker-compose.yml KeepGoing'
+                sh 'sleep 10'
+                sh 'echo "checking URLs"'
+                sh './scripts/tests/testing'
+                sh 'sleep 10'
+
+            }
+
+        }
+
+ stage("Installing Ansible"){
+            steps{
+                sh 'sudo apt update'
+                sh 'sudo apt install software-properties-common'
+                sh 'sudo apt install ansible'
+                sh 'echo "all good to go"'
+
+            }
+
+        }
 
 
             stage('Dependencies'){
@@ -18,10 +53,8 @@ pipeline {
                 steps{
 
                     sh 'chmod +x ./script/*'
-
-                    sh 'bash ./script/before_installation.sh'
-
                     sh './script/ansible.sh'
+                    
 
                 }
 
@@ -42,12 +75,6 @@ pipeline {
                 }
 
             }
-
-
-
-    }
-
-}
 
         stage("Testing"){
 
