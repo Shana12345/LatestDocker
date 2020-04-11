@@ -1,50 +1,13 @@
-from flask import Flask, render_template, request, url_for, redirect, flash
-from flask_mysqldb import MySQL
-import os
 import urllib3
 
-app = Flask(__name__) #assign your name 'app'
-app.config["MYSQL_HOST"] = os.environ.get('MYSQL') #IP address of SQL database 
-app.config["MYSQL_USER"] = os.environ.get('MYSQLUSER')#Username for DB
-app.config["MYSQL_PASSWORD"] = os.environ.get('MYSQLPASSWORD')#Password for DB
-app.config["MYSQL_DB"] = os.environ.get('MYSQLDB')#Databse being used
-app.config['SECRET_KEY'] = 'secret'
-
-mysql = MySQL(app) # What to define 'MySQL' as 'mysql'
-def url_one():
+def test_home():
     http = urllib3.PoolManager()
-    r = http.request('GET', 'http://service_4:5003/randomName')
+    r = http.request('GET', "http://35.222.72.134/")
     assert 200 == r.status
-
-def url_two():
+    
+def test_negative():
     http = urllib3.PoolManager()
-    r = http.request('GET', 'http://service_1:5000/randomName')
-    assert 200 == r.status
+    r = http.request('GET', "http://35.222.72.134/daemon")
+    assert r.status == 404
 
-def url_three():
-    http = urllib3.PoolManager()
-    r = http.request('GET', 'http://service_2:5001/randomFS')
-    assert 200 == r.status
 
-def url_four():
-    http = urllib3.PoolManager()
-    r = http.request('GET', 'http://service_3:5002/randomFS')
-    assert 200 == r.status
-
-def testDB_insert():
-    with app.app_context():
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO areaTable (first_name, last_name, area_num)  VALUES ('JesusIs', 'WithHer', 74)")
-        mysql.connection.commit()
-        cur.execute("SELECT * FROM areaTable")
-        record_after = cur.fetchall()
-        print(record_after)
-        m=[]
-        for i in record_after:
-            for j in i:
-                m.append(j)
-        cur.close()
-        print(m)
-        assert('JesusIs') == m[-3]
-        assert('WithHer') == m[-2]
-        assert(74) == m[-1]
