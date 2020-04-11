@@ -42,7 +42,7 @@ pipeline{
 
                 sh './scripts/run_before.sh'
 
-                sh 'sudo docker stack rm service stackdemo'
+                sh 'sudo docker stack rm service KeepGoing'
 
                 sh 'sudo docker swarm leave -f'
 
