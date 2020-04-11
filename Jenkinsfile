@@ -1,6 +1,9 @@
+
+
 pipeline{
 
     agent any
+
 
 
     stages{
@@ -8,8 +11,11 @@ pipeline{
         stage("Test Install"){
 
             steps{
+
                 sh 'echo "installing docker locally"'
+
                 sh 'chmod 775 ./scripts/*'
+
                 sh './scripts/before_installation.sh'
 
             }
@@ -21,69 +27,103 @@ pipeline{
             steps{
 
                 sh 'echo "install testing docker-swarm"'
+
                 sh 'chmod 775 ./scripts/*'
+
                 sh './scripts/installation.sh'
-                sh '.roles/docker-swarm-init/tasks/main.yml'
-                sh 'sudo docker stack deploy --compose-file /var/lib/jenkins/workspace/SaveMe/docker-compose.yml KeepGoing'
-                sh 'sleep 10'
+
+                sh 'sudo docker swarm init'
+
+                sh 'sudo docker stack deploy --compose-file /var/lib/jenkins/workspace/SaveMe/testing-docker-swarm.yml KeepGoing'
+
+                sh 'sleep 20'
+
                 sh 'echo "checking URLs"'
-                sh './scripts/tests/testing'
+
+                sh './scripts/run_before.sh'
+
+                sh 'sudo docker stack rm service stackdemo'
+
+                sh 'sudo docker swarm leave -f'
+
                 sh 'sleep 10'
 
             }
 
         }
 
- stage("Installing Ansible"){
+        stage("Installing Ansible"){
+
             steps{
+
                 sh 'sudo apt update'
+
                 sh 'sudo apt install software-properties-common'
+
+                sh 'sudo sudo apt-add-repository --yes --update ppa:ansible/ansible'
+
                 sh 'sudo apt install ansible'
+
                 sh 'echo "all good to go"'
 
             }
 
         }
 
+        stage("Environment Setting"){
 
-            stage('Dependencies'){
+            steps{
 
-                agent {label 'master'}
+                sh 'echo "installing docker via ansible"'
 
-                steps{
+                sh 'ansible-playbook -i ./ansible/docker.conf ./ansible/docker-installation.yml'
 
-                    sh 'chmod +x ./script/*'
-                    sh './script/ansible.sh'
-                    
-
-                }
+                sh 'echo "docker installed"'
 
             }
 
+        }
 
+        stage("Nodes Assigned"){
 
-            stage('Deploying Docker Stack'){
+            steps{
 
-                agent {label 'manager_node'}
+                sh 'echo "assigning nodes via ansible"'
 
-                steps{
+                sh 'ansible-playbook -i ./ansible/docker.conf ./ansible/assign-nodes.yml'
 
-                    sh 'chmod +x ./script/*'
-
-                    sh './script/docker.sh'
-
-                }
+                sh 'echo "nodes assigned"'
 
             }
+
+        }
+
+        stage("Deploy Swarm"){
+
+            steps{
+
+                sh 'echo "deploy docker via ansible"'
+
+                sh 'ansible-playbook -i ./ansible/docker.conf ./ansible/deploy-swarm.yml'
+
+                sh 'echo "swarm depolyed"'
+
+                sh 'sleep 20'
+
+            }
+
+        }
 
         stage("Testing"){
 
             steps{
 
                 sh 'echo "testing db"'
+
                 sh 'chmod 775 ./scripts/*'
+
                 sh 'echo "checking URLs"'
-                sh './scripts/tests/testing.py'
+
                 sh './scripts/run_after.sh'
 
             }
