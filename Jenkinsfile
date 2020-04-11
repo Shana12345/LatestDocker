@@ -78,7 +78,7 @@ pipeline{
          
                 sh 'echo "checking URLs"'
 
-                sh 'chmod +x /var/lib/jenkins/workspace/SaveMe/tests'
+                sh 'chmod 775 /var/lib/jenkins/workspace/SaveMe/tests'
 
                 sh './tests/before_prob.sh'
 
