@@ -27,7 +27,7 @@ pipeline{
                 sh 'chmod 775 ./scripts/*'
                 sh './scripts/installation.sh'
                 sh 'sudo docker swarm init'
-                sh 'sudo docker stack deploy --compose-file /var/lib/jenkins/workspace/KeepGoingA/docker-compose.yml KeepGoing'
+                sh 'sudo docker stack deploy --compose-file /var/lib/jenkins/workspace/SaveMe/docker-compose.yml KeepGoing'
                 sh 'sleep 20'
                 sh 'echo "checking URLs"'
                 sh './scripts/run_before.sh'
