@@ -1,112 +1,67 @@
 
-
 pipeline{
 
-    agent any
+    agent none
 
 
 
     stages{
 
-        stage("Test Install"){
+        stage("testEnv"){
+
+            agent {label 'master'}
 
             steps{
 
-                sh 'echo "installing docker locally"'
+                sh 'echo "dev-test local install"'
 
-                sh 'chmod 775 ./scripts/*'
+                // sh 'sudo apt update -y'
 
-                sh './scripts/before_installation.sh'
+                // sh 'sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4'
+
+                // sh 'sudo apt-get install default-jdk'
+
+                // sh 'sudo apt-get remove docker docker-engine docker.io -y'
+
+                // sh 'sudo apt-get purge containderd.io docker.io'
+
+                // sh 'sudo apt-get install containerd.io'
+
+                // sh 'sudo apt install docker.io -y'
+
+                // sh 'sudo apt install docker-compose -y'
+
+                // sh 'sudo systemctl start docker'
+
+                // sh 'sudo systemctl enable docker'
+
+                // sh 'sudo systemctl status docker'
+
+                // sh 'sudo usermod -aG docker $USER'
+
+                // sh 'sudo apt install software-properties-common'
+
+                // sh 'sudo apt-add-repository --yes --update ppa:ansible/ansible'
+
+                // sh 'sudo apt install ansible -y'
+
+                // sh 'ansible --version'
 
             }
 
         }
 
-        stage("Test Docker Swarm"){
+        stage("testingInstall"){
+
+            agent {label 'master'}
 
             steps{
 
-                sh 'echo "install testing docker-swarm"'
+                sh 'echo "install testing dependencies"'
 
-                sh 'chmod 775 ./scripts/*'
+                sh 'chmod +x /var/lib/jenkins/workspace/SaveMe/scripts/testingInstall.sh'
 
-                sh './scripts/installation.sh'
-
-                sh 'sudo docker swarm init'
-
-                sh 'sudo docker stack deploy --compose-file /var/lib/jenkins/workspace/SaveMe/testing-docker-swarm.yml KeepGoing'
-
-                sh 'sleep 20'
-
-                sh 'echo "checking URLs"'
-
-                sh './scripts/run_before.sh'
-
-                sh 'sudo docker stack rm service KeepGoing'
-
-                sh 'sudo docker swarm leave -f'
-
-                sh 'sleep 10'
-
-            }
-
-        }
-
-        stage("Installing Ansible"){
-
-            steps{
-
-                sh 'sudo apt update'
-
-                sh 'sudo apt install software-properties-common'
-
-                sh 'sudo sudo apt-add-repository --yes --update ppa:ansible/ansible'
-
-                sh 'sudo apt install ansible'
-
-                sh 'echo "all good to go"'
-
-            }
-
-        }
-
-        stage("Environment Setting"){
-
-            steps{
-
-                sh 'echo "installing docker via ansible"'
-
-                sh 'ansible-playbook -i ./ansible/docker.conf ./ansible/docker-installation.yml'
-
-                sh 'echo "docker installed"'
-
-            }
-
-        }
-
-        stage("Nodes Assigned"){
-
-            steps{
-
-                sh 'echo "assigning nodes via ansible"'
-
-                sh 'ansible-playbook -i ./ansible/docker.conf ./ansible/assign-nodes.yml'
-
-                sh 'echo "nodes assigned"'
-
-            }
-
-        }
-
-        stage("Deploy Swarm"){
-
-            steps{
-
-                sh 'echo "deploy docker via ansible"'
-
-                sh 'ansible-playbook -i ./ansible/docker.conf ./ansible/deploy-swarm.yml'
-
-                sh 'echo "swarm depolyed"'
+                sh './scripts/testingInstall.sh'
 
                 sh 'sleep 20'
 
@@ -114,17 +69,67 @@ pipeline{
 
         }
 
-        stage("Testing"){
+        stage("urlTesting"){
+
+            agent {label 'master'}
 
             steps{
 
-                sh 'echo "testing db"'
+                sh 'echo "Pinging URLs"'
 
-                sh 'chmod 775 ./scripts/*'
+                sh 'python3 -m coverage run -m pytest tests/url_testing.py'
 
-                sh 'echo "checking URLs"'
+                sh 'python3 -m coverage report'
 
-                sh './scripts/run_after.sh'
+            }
+
+
+
+        }
+
+        stage("dbTesting"){
+
+            agent {label 'master'}
+
+            steps{
+
+                sh 'echo "Probing MySQL Database"'
+
+                sh 'chmod +x /var/lib/jenkins/workspace/SaveMe/scripts/dbTesting.sh'
+
+                sh './scripts/dbTesting.sh'
+
+            }
+
+        }
+
+                stage("ansibleSetup"){
+
+            agent {label 'master'}
+
+            steps{
+
+                sh 'echo "Antsy Ansible"'
+
+                sh 'chmod +x /var/lib/jenkins/workspace/SaveMe/scripts/ansibleSetup.sh'
+
+                sh './scripts/ansibleSetup.sh'
+
+            }
+
+        }
+
+        stage("swarmDeploy"){
+
+            agent {label 'manager-node'}
+
+            steps{
+
+                // sh 'newgrp docker'
+
+                sh 'sudo docker stack rm character_stack'
+
+                sh 'sudo docker stack deploy --compose-file docker-compose.yml KeepGoing'
 
             }
 
