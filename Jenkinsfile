@@ -124,7 +124,7 @@ pipeline{
 
         stage("swarmDeploy"){
 
-            agent {label 'manager-node'}
+            agent {label 'master'}
 
             steps{
 
