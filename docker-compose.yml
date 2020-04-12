@@ -11,28 +11,28 @@ services:
             - MYSQLPASSWORD=${MYSQLPASSWORD}
             - MYSQLDB=${MYSQLDB}
         networks:
-            - ingress
+            - Jesus
         deploy:
             replicas: 2
 
     service_2:
         image: shana12345/microservice_2
         networks:
-            - ingress
+            - Jesus
         deploy:
             replicas: 1
 
     service_3:
         image: shana12345/microservice_3
         networks:
-            - ingress
+            - Jesus
         deploy:
             replicas: 1
 
     service_4:
         image: shana12345/microservice_4
         networks:
-            - ingress
+            - Jesus
         deploy:
             replicas: 3
 
@@ -41,7 +41,7 @@ services:
         ports:
             - "80:80"
         networks:
-            - ingress
+            - Jesus
         depends_on:
             - service_1
             - service_2
@@ -51,5 +51,5 @@ services:
             replicas: 3
 
 networks:
-    ingress:
+    Jesus:
         driver: overlay
