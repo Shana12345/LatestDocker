@@ -40,7 +40,7 @@
 
 <a name="brief"></a>
 # The Brief
-The aim is to create an OOP based application using CRUD method. Here the incorporation of tools methods and technologies was implemented. 
+The aim is to create an OOP based application. Here the incorporation of tools methods and technologies was implemented.
 The application must made up of a total of 4 applications each with their own required elements. Each must be Flask based be able to control and alter data 
 via at least one table with on fuctionality for the user to input data. This application will be using the framework jenkins, where jenkins should 
 go into another server that can run the application. the should be handed the ssh key to activate the instance. This application ran jenkins with a before and after installation to assign a pipeline dedicated server.  
@@ -218,7 +218,7 @@ and Service_3 holds the second part of the data. Service_4 grab both data from S
 
 <a name="depl"></a>
 # Deployment
-The automated build was included in this project, but the test and deployment process was still done by Jenkins, via GitHub which was 
+The automated build wasn't included in this project, but the test and deployment process was still done by Jenkins, via GitHub which was 
 triggered with every push event. This website can be deployed both locally as well as externally by a virtual machine. 
 
 ## JENKINS & GIT
@@ -240,9 +240,9 @@ To be able to trigger a Jenkins build with a Git push you need to install a Git 
 # Retrospective
 
 ## Achievements
-- What was good was that everything was delieved within the timeframe even though there was issue involved.
+- What was good was that everything was delivered within the timeframe even though there was issue involved.
 - Understanding the tools used in depth, understanding each had their own unique part and knowing the side effects  without them.
-- All complusory tasks were met.
+- All compulsory tasks were met.
 
 ## Problems faced
 - Not understand the tasks and tools at hand at the beginning of the project. This made it harder to start and plan on what I need to do.
@@ -253,7 +253,7 @@ To be able to trigger a Jenkins build with a Git push you need to install a Git 
 
 <a name="improve"></a>
 # Improvements for the Future
-- The improvement that needed to be made would be adding the firewall. Due to the fact that the ipaddress kept altering made it more difficult to implement.
+- The improvement that needed to be made would be adding the firewall. Due to the fact that the IP address kept altering made it more difficult to implement.
   In addition, add HTTP traffic to the firewall rules without the VMs producing an error. 
 - Adding CRUD functionality
 - Learning more in depth testing 
