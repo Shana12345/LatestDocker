@@ -84,8 +84,8 @@ To create the user stories, Trello was used, there was listed all the use-cases 
 
 <a name="spr1"></a>
 # Trello Board (Sprint)
-Each entry represents a sprint. Most sprint was roughly 4 days, so took a lot longer due to server issues which required created new instances, 
-however each needed to be met. 
+Each entry represents a sprint. Most sprint was roughly 4 days, so took a lot longer due to server issues which required created new instances, however each needed to be met.
+ 
 ![Sprint](/images/sprint.PNG)
 
 ![Sprints](/images/sprints.PNG)
