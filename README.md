@@ -21,7 +21,7 @@
 [Testing](#testing)
    * [Report](#report)
 
-[Architecture]
+[Architecture](#Projectarchitecture)
    * [Project Architecture](#Projectarchitecture)
 
 [Deployment](#depl)
@@ -119,6 +119,7 @@ Running on MANAGER
 
 ![manager](/images/Managernodecircle.PNG)
 
+
 Running on WORKER
 
 ![worker](/images/Workernodecircle.PNG)
@@ -193,6 +194,7 @@ Here shows the testing  on jenkins which passed at 78%
 Test coverage for the coverage report passed at 100%. 
 
 ![overall coverage](/images/coverageReport.PNG)
+
 
 
 Jenkins comfirmation of success 
