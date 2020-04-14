@@ -9,7 +9,8 @@
 
 [Pie chart of Risks](#piechart) 
    * [Pie chart risk percentage](#piechart) 
-	* [User Stories](#userstories)
+
+[User Stories](#userstories)
 
 [Sprints & Planning](#spr1)
    * [Trello Board Sprint 1.0](#spr1) 
