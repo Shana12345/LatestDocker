@@ -85,7 +85,7 @@ To create the user stories, Trello was used, there was listed all the use-cases 
 <a name="spr1"></a>
 # Trello Board (Sprint)
 Each entry represents a sprint. Most sprint was roughly 4 days, so took a lot longer due to server issues which required created new instances, however each needed to be met.
- 
+
 ![Sprint](/images/sprint.PNG)
 
 ![Sprints](/images/sprints.PNG)
@@ -211,7 +211,7 @@ In addition, making them into a stack to later to be run via jenkins.
 
 
 Here shows what each Services do. Service_1 is the frontend and output Service_4 to the screen. Service_2 hold the first part of the data,
-and Service_3 holds the second part of the data. Service_4 grab both data from Service_2 and Service_3, combines they accordingly.
+and Service_3 holds the second part of the data. Service_4 grab both data from Service_2 and Service_3, combines them accordingly.
 
 ![process2](/images/process2.PNG)
 
